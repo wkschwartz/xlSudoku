@@ -193,7 +193,6 @@ Private Function ruleOut(cellR As Long, cellC As Long, bad As Long, reason As St
                 Exit For
             End If
         Next answr
-        Exit Function
     End If
     If Not atLeastOneOfEachConstraint(cellR, cellC, bad) Then
         ' Not strictly necessary since it's the last statement in the function
