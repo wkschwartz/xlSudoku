@@ -312,29 +312,19 @@ Private Function indexToRow(index As Long) As Long
 End Function
 
 Private Function subSqStart(i As Long) As Long
-    'Debug.Assert MAX_ELEM = 9 ' This function isn't very flexible...
-    If i <= 9 Then
-        subSqStart = 7
-    End If
-    If i <= 6 Then
-        subSqStart = 4
-    End If
-    If i <= 3 Then
-        subSqStart = 1
-    End If
+    ' Return the row or column that begins the subsquares that contain row or
+    ' column i
+    Dim subsqsize As Long
+    subsqsize = Sqr(MAX_ELEM)
+    subSqStart = subsqsize * ((i - 1) \ 3) + 1
 End Function
 
 Private Function subSqEnd(i As Long) As Long
-    'Debug.Assert MAX_ELEM = 9 ' This function isn't very flexible...
-    If i >= 1 Then
-        subSqEnd = 3
-    End If
-    If i >= 4 Then
-        subSqEnd = 6
-    End If
-    If i >= 7 Then
-        subSqEnd = 9
-    End If
+    ' Return the row or column that ends the subsquares that contain row or
+    ' column i
+    Dim subsqsize As Long
+    subsqsize = Sqr(MAX_ELEM)
+    subSqEnd = subSqStart(i) + (subsqsize - 1)
 End Function
 
 Private Function rcToSubsq(r As Long, c As Long) As Long
