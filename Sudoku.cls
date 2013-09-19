@@ -37,6 +37,8 @@ Option Explicit
 Const MAX_ELEM As Long = 9 ' max value allowed in a cell
 Const BAD_INIT_POSITIONS As Long = 514 ' error value
 
+' First index of each array is the named by the attribute; second index is the
+' particular cell value being counted.
 Private Type Counts
     rows(1 To MAX_ELEM, 1 To MAX_ELEM) As Long
     columns(1 To MAX_ELEM, 1 To MAX_ELEM) As Long
@@ -46,7 +48,7 @@ End Type
 Private domains(1 To MAX_ELEM, 1 To MAX_ELEM) As SmallIntSet ' Stores possible answers for each cell
 Private answers(1 To MAX_ELEM, 1 To MAX_ELEM) As Long ' Stores the answers
 Private answeredStack As Stack ' Stores the index of cells to be propogated
-Private valueCounts As Counts
+Private valueCounts As Counts ' For ensuring each row/col/subsq has at least one of each value
 Private feasible As Boolean
 
 Public Function Init(initPos() As Long) As Boolean
