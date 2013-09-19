@@ -29,7 +29,7 @@ Public Sub Init(min As Long, max As Long)
     Count = 0
 End Sub
 
-Public Sub add(element As Long)
+Public Sub Add(element As Long)
     ' Add element to the set.
     If element < LBound(elem) Or element > UBound(elem) Then
         Err.Raise Number:=vbObjectError + ElementOutOfBounds, _
@@ -41,7 +41,7 @@ Public Sub add(element As Long)
     End If
 End Sub
 
-Public Sub del(element As Long)
+Public Sub Del(element As Long)
     ' Delete element from the set.
     If element < LBound(elem) Or element > UBound(elem) Then
         Err.Raise Number:=vbObjectError + ElementOutOfBounds, _

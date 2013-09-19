@@ -78,12 +78,12 @@ Public Function Init(initPos() As Long) As Boolean
                     Description:="initPos must contain only nubers 0 to " & CStr(MAX_ELEM)
             End If
             If cellVal > 0 Then
-                Call add(r, c, cellVal)
+                Call Add(r, c, cellVal)
                 answers(r, c) = cellVal
                 Call answeredStack.Push(rcToIndex(r, c))
             Else ' When a cell has no initial position, it could be any number 1-9
                 For cellVal = 1 To MAX_ELEM
-                    Call add(r, c, cellVal)
+                    Call Add(r, c, cellVal)
                 Next cellVal
                 answers(r, c) = 0
             End If
@@ -94,24 +94,24 @@ Public Function Init(initPos() As Long) As Boolean
     Init = feasible
 End Function
 
-Private Sub add(r As Long, c As Long, v As Long)
+Private Sub Add(r As Long, c As Long, v As Long)
     ' Add v to the domain of cell (r, c)
     If Not domains(r, c).Has(v) Then
         valueCounts.rows(r, v) = valueCounts.rows(r, v) + 1
         valueCounts.columns(c, v) = valueCounts.columns(c, v) + 1
         valueCounts.subsqs(rcToSubsq(r, c), v) = valueCounts.subsqs(rcToSubsq(r, c), v) + 1
     End If
-    Call domains(r, c).add(v)
+    Call domains(r, c).Add(v)
 End Sub
 
-Private Sub del(r As Long, c As Long, v As Long)
+Private Sub Del(r As Long, c As Long, v As Long)
     ' Delete v from the domain of cell (r, c)
     If domains(r, c).Has(v) Then
         valueCounts.rows(r, v) = valueCounts.rows(r, v) - 1
         valueCounts.columns(c, v) = valueCounts.columns(c, v) - 1
         valueCounts.subsqs(rcToSubsq(r, c), v) = valueCounts.subsqs(rcToSubsq(r, c), v) - 1
     End If
-    Call domains(r, c).del(v)
+    Call domains(r, c).Del(v)
 End Sub
 
 Public Function Answer(r As Long, c As Long) As Long
@@ -178,7 +178,7 @@ Private Function ruleOut(cellR As Long, cellC As Long, bad As Long, reason As St
 
     'Debug.Print "  value((" & CStr(cellR) & ", " & CStr(cellC) & ")) != " & CStr(bad) & ": " & reason
 
-    Call del(cellR, cellC, bad)
+    Call Del(cellR, cellC, bad)
     'Debug.Assert domains(cellR, cellC).Card() > 0
     Dim answr As Long
     ruleOut = True
@@ -222,7 +222,7 @@ Private Function mustBe(cellR As Long, cellC As Long, good As Long, reason As St
     Dim bad As Long
     For bad = 1 To MAX_ELEM
         If bad <> good Then
-            Call del(cellR, cellC, bad)
+            Call Del(cellR, cellC, bad)
             ' Would be great to check the at-least-one-of-each-value in each
             ' row, column, and subsquare here just as we do after a call to
             ' ruleOut, but it always seems to run out of stack space. Perhaps
